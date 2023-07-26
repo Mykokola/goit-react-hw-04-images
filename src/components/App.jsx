@@ -18,42 +18,49 @@ export const App = () => {
   const [page, setPage] = useState(1);
   const [isloader, setIsloader] = useState(false);
 
+  const SubmitSearch = e => {
+    setSearchImg(e);
+  };
+
+  const lodaMoreImg = e => {
+    e.preventDefault();
+    // const { page } = this.state;
+    setPage(page + 1);
+  };
+  const fetchGenerator = async () => {
+    const articles = await fetchImgj(searchImg, page);
+    return articles;
+  };
+
   useEffect(() => {
-try{
-  if(searchImg.length) {
-    setIsloader(true)
-    const fetchGeneratorOne = async () => {
-      const articles = await fetchImgj(searchImg);
-      return articles;
-    };
-        fetchGeneratorOne().then(articles => {
-          setImgApiMass(() =>[...articles.data.hits]);
-        });
-        setPage(1)
-      }
-}catch{
-console.log('error')
-}finally{
-  setIsloader(false)
-}
-  }, [searchImg]);
-  useEffect(() => {
-    const fetchGeneratorTwo = async () => {
-      const articles = await fetchImgj(searchImg, page);
-      return articles;
-    };
     try {
+      if (searchImg.length) {
+        setIsloader(true);
       
-      if(page !== 1){
-        setIsloader(true)
-        fetchGeneratorTwo().then(articles => {
+        fetchGenerator().then(articles => {
+          setImgApiMass(() => [...articles.data.hits]);
+        });
+        setPage(1);
+      }
+    } catch {
+      console.log('error');
+    } finally {
+      setIsloader(false);
+    }
+  }, [searchImg]);
+
+  useEffect(() => {
+
+    try {
+      if (page !== 1) {
+        setIsloader(true);
+        fetchGenerator().then(articles => {
           setImgApiMass(() => [...imgApiMass, ...articles.data.hits]);
         });
       }
-
     } catch {
     } finally {
-      setIsloader(false)
+      setIsloader(false);
     }
   }, [page]);
 
@@ -78,16 +85,6 @@ console.log('error')
   //     }
   //   }
   // }
-
-  const SubmitSearch = e => {
-    setSearchImg(e);
-  };
-
-  const lodaMoreImg = e => {
-    e.preventDefault();
-    // const { page } = this.state;
-    setPage(page + 1);
-  };
 
   // const { imgApiMass, isloader,page } = this.state;
   return (
