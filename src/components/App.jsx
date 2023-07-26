@@ -7,12 +7,6 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { useState } from 'react';
 import { useEffect } from 'react';
 export const App = () => {
-  // state = {
-  //   searchImg: '',
-  //   imgApiMass: [],
-  //   page: 1,
-  //   isloader: false,
-  // };
   const [searchImg, setSearchImg] = useState('');
   const [imgApiMass, setImgApiMass] = useState([]);
   const [page, setPage] = useState(1);
@@ -24,7 +18,6 @@ export const App = () => {
 
   const lodaMoreImg = e => {
     e.preventDefault();
-    // const { page } = this.state;
     setPage(page + 1);
   };
   const fetchGenerator = async () => {
@@ -36,7 +29,7 @@ export const App = () => {
     try {
       if (searchImg.length) {
         setIsloader(true);
-      
+
         fetchGenerator().then(articles => {
           setImgApiMass(() => [...articles.data.hits]);
         });
@@ -50,7 +43,6 @@ export const App = () => {
   }, [searchImg]);
 
   useEffect(() => {
-
     try {
       if (page !== 1) {
         setIsloader(true);
@@ -64,29 +56,6 @@ export const App = () => {
     }
   }, [page]);
 
-  // async componentDidUpdate(prevProps, prevState) {
-  //   try {
-  //     if (this.state.searchImg !== prevState.searchImg) {
-  //       this.setState({ isloader: true });
-  //       const articles = await fetchImgj(this.state.searchImg);
-  //       this.setState({ imgApiMass: articles.data.hits });
-  //     }
-  //     if (this.state.page !== prevState.page) {
-  //       this.setState({ isloader: true });
-  //       const articles = await fetchImgj(this.state.searchImg, this.state.page);
-  //       this.setState({
-  //         imgApiMass: [...this.state.imgApiMass, ...articles.data.hits],
-  //       });
-  //     }
-  //   } catch {
-  //   } finally {
-  //     if (this.state.isloader) {
-  //       this.setState({ isloader: false });
-  //     }
-  //   }
-  // }
-
-  // const { imgApiMass, isloader,page } = this.state;
   return (
     <>
       {/* SEARCH-BAR */}
