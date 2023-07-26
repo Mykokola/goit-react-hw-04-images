@@ -1,26 +1,27 @@
 import React from 'react';
+import { useState } from 'react';
 import {
   SearchBarHeader,
   SearchForm,
   SearchFormButton,
   SerchFromInput,
 } from './Searchbar.styled';
-export class Searchbar extends React.Component {
-  state = {
-    searchImg: '',
-  };
-  handSetState = (e) => {
-    this.setState({searchImg:e.target.value})
+export const Searchbar = ({submitSearch}) => {
+  // state = {
+  //   searchImg: '',
+  // };
+  const [searchImg,setSearchImg] = useState('')
+  const handSetState = (e) => {
+    setSearchImg(e.target.value)
   }
-  SubmitSearch = (e) => {
+  const handSubmitSearch = (e) => {
     e.preventDefault()
-    const {searchImg} = this.state
-   this.props.onSubmit(searchImg.trim())
+    submitSearch(searchImg)
+  // this.props.onSubmit(searchImg.trim())
   }
-  render() {
     return (
       <SearchBarHeader className="searchbar">
-        <SearchForm onSubmit={this.SubmitSearch} className="form">
+        <SearchForm onSubmit={handSubmitSearch} className="form">
           <SearchFormButton type="submit" className="button">
             <span className="button-label">Search</span>
           </SearchFormButton>
@@ -29,10 +30,9 @@ export class Searchbar extends React.Component {
             className="input"
             type="text"
             placeholder="Search images and photos"
-            onChange={this.handSetState}
+            onChange={handSetState}
           />
         </SearchForm>
       </SearchBarHeader>
     );
-  }
 }
