@@ -16,7 +16,7 @@ export const Searchbar = ({submitSearch}) => {
   }
   const handSubmitSearch = (e) => {
     e.preventDefault()
-    submitSearch(searchImg)
+    submitSearch(searchImg.trim())
   // this.props.onSubmit(searchImg.trim())
   }
     return (

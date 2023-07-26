@@ -19,20 +19,23 @@ export const App = () => {
   const [isloader, setIsloader] = useState(false);
 
   useEffect(() => {
+try{
+  if(searchImg.length) {
+    setIsloader(true)
     const fetchGeneratorOne = async () => {
       const articles = await fetchImgj(searchImg);
       return articles;
     };
-    try {
-      if (searchImg) {
         fetchGeneratorOne().then(articles => {
-          setImgApiMass(articles.data.hits);
+          setImgApiMass(() =>[...articles.data.hits]);
         });
+        setPage(1)
       }
-    } catch {
-      console.log('error');
-    } finally {
-    }
+}catch{
+console.log('error')
+}finally{
+  setIsloader(false)
+}
   }, [searchImg]);
   useEffect(() => {
     const fetchGeneratorTwo = async () => {
@@ -40,17 +43,19 @@ export const App = () => {
       return articles;
     };
     try {
-      debugger
-      if(page !== 1 && imgApiMass.length/12 === page-1){
+      
+      if(page !== 1){
+        setIsloader(true)
         fetchGeneratorTwo().then(articles => {
-          setImgApiMass(() => [imgApiMass, ...articles.data.hits]);
+          setImgApiMass(() => [...imgApiMass, ...articles.data.hits]);
         });
       }
 
     } catch {
     } finally {
+      setIsloader(false)
     }
-  }, [page, imgApiMass,searchImg]);
+  }, [page]);
 
   // async componentDidUpdate(prevProps, prevState) {
   //   try {
