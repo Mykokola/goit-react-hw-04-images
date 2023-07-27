@@ -42,7 +42,7 @@ export const App = () => {
       setIsloader(false);
     }
     // eslint-disable-next-line
-  }, [searchImg]);
+  }, [searchImg]);// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     try {
@@ -62,7 +62,7 @@ export const App = () => {
       setIsloader(false);
     }
     // eslint-disable-next-line
-  }, [page]);
+  }, [page]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
