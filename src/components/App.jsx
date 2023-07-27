@@ -20,17 +20,16 @@ export const App = () => {
     e.preventDefault();
     setPage(page + 1);
   };
-
+  const fetchGenerator = async () => {
+    const articles = await fetchImgj(searchImg, page);
+    return articles;
+  };
 
   useEffect(() => {
     try {
       if (searchImg.length) {
-        const fetchGenerator = async () => {
-          const articles = await fetchImgj(searchImg, page);
-          return articles;
-        };
+     
         setIsloader(true);
-// eslint-disable-next-line react-hooks/exhaustive-deps
         fetchGenerator().then(articles => {
           setImgApiMass(() => [...articles.data.hits]);
         });
@@ -42,16 +41,12 @@ export const App = () => {
       setIsloader(false);
     }
     // eslint-disable-next-line
-  }, [searchImg]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchImg]);
 
   useEffect(() => {
     try {
       if (page !== 1) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        const fetchGenerator = async () => {
-          const articles = await fetchImgj(searchImg, page);
-          return articles;
-        };
+      
         setIsloader(true);
         fetchGenerator().then(articles => {
           setImgApiMass(() => [...imgApiMass, ...articles.data.hits]);
@@ -62,7 +57,7 @@ export const App = () => {
       setIsloader(false);
     }
     // eslint-disable-next-line
-  }, [page]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <>
