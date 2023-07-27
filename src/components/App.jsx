@@ -30,7 +30,7 @@ export const App = () => {
           return articles;
         };
         setIsloader(true);
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
         fetchGenerator().then(articles => {
           setImgApiMass(() => [...articles.data.hits]);
         });
@@ -47,6 +47,7 @@ export const App = () => {
   useEffect(() => {
     try {
       if (page !== 1) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         const fetchGenerator = async () => {
           const articles = await fetchImgj(searchImg, page);
           return articles;
