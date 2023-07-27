@@ -20,14 +20,15 @@ export const App = () => {
     e.preventDefault();
     setPage(page + 1);
   };
-  const fetchGenerator = async () => {
-    const articles = await fetchImgj(searchImg, page);
-    return articles;
-  };
+
 
   useEffect(() => {
     try {
       if (searchImg.length) {
+        const fetchGenerator = async () => {
+          const articles = await fetchImgj(searchImg, page);
+          return articles;
+        };
         setIsloader(true);
 
         fetchGenerator().then(articles => {
@@ -46,6 +47,10 @@ export const App = () => {
   useEffect(() => {
     try {
       if (page !== 1) {
+        const fetchGenerator = async () => {
+          const articles = await fetchImgj(searchImg, page);
+          return articles;
+        };
         setIsloader(true);
         fetchGenerator().then(articles => {
           setImgApiMass(() => [...imgApiMass, ...articles.data.hits]);
