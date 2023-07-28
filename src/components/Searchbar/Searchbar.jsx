@@ -31,6 +31,7 @@ export const Searchbar = ({submitSearch}) => {
             type="text"
             placeholder="Search images and photos"
             onChange={handSetState}
+            value={searchImg}
           />
         </SearchForm>
       </SearchBarHeader>

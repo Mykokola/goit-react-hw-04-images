@@ -13,6 +13,7 @@ export const App = () => {
   const [isloader, setIsloader] = useState(false);
 
   const SubmitSearch = e => {
+    setPage(1);
     setSearchImg(e);
   };
 
@@ -28,12 +29,11 @@ export const App = () => {
   useEffect(() => {
     try {
       if (searchImg.length) {
-     
         setIsloader(true);
         fetchGenerator().then(articles => {
           setImgApiMass(() => [...articles.data.hits]);
         });
-        setPage(1);
+     
       }
     } catch {
       console.log('error');
